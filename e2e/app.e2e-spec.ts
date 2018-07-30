@@ -16,5 +16,10 @@ describe("App", () => {
       expect(page.getTitle()).toContain('Ionic App')
     });
 
+    it('fill in form', () => {
+      page.fillInForm(60, 'Female', 34);
+      
+    });
+
   });
 });

@@ -10,6 +10,7 @@ log.txt
 *.sublime-project
 *.sublime-workspace
 .vscode/
+.vscodelaunch.json
 npm-debug.log*
 
 .idea/

@@ -14,4 +14,8 @@ export class Page {
       .element(by.tagName("ion-title"))
       .getText();
   }
+
+  fillInForm(distance, gender, age) {
+    element(by.cssContainingText('ion-label', 'Distance')).nextElementSibling.sendKeys(distance);
+  }
 }

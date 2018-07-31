@@ -17,8 +17,8 @@ describe("App", () => {
     });
 
     it('fill in form', () => {
-      page.fillInForm(60, 'Female', 34);
-      
+      page.fillInForm(1000, 'Female', 20);
+      expect(page.results()).toContain('Cooper Test Result, Gender: female, Age: 20, Result: Poor');
     });
 
   });

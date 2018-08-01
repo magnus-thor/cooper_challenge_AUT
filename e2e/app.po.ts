@@ -35,6 +35,7 @@ export class Page {
     browser.actions().dragAndDrop(slider, {x: 50, y: 0}).perform();  // 
     
     element(by.cssContainingText('.button', 'Calculate')).click();  // click the calculate button
+  
   }
 
   results() {

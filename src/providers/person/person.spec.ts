@@ -37,8 +37,8 @@ describe("Person Component", () => {
 	it('cooper provider should be called', () => {
     personProvider.age = 25;
     personProvider.gender = 'female';
-
     spyOn(cooperProvider, 'assess');
+    
 		personProvider.doAssessment(2200);
 
 		expect(cooperProvider.assess).toHaveBeenCalled();

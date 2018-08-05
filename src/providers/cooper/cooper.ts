@@ -67,7 +67,7 @@ export class CooperProvider {
 		if (ageRange === 'invalid range') {
 			return 'Invalid age range';
 		}
-
+		
 		const distanceRanges = this.cooperTable[person.gender.toLowerCase()][
 			ageRange
 		];

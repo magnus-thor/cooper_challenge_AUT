@@ -15,6 +15,8 @@ export class HomePage {
   }
 
   calculate(user) {
+    this.person.age = user.age;
+    this.person.gender = user.gender;
     this.person.doAssessment(user.distance);
     this.performanceData
       .saveData({ performance_data: { data: { message: this.person.assessmentMessage } } })

@@ -8,9 +8,8 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { PlatformMock, StatusBarMock, SplashScreenMock, NavControllerMock } from "ionic-mocks";
 import { Angular2TokenService } from 'angular2-token';
-
-
-
+import {Http, BaseRequestOptions, RequestMethod} from '@angular/http'
+import {MockBackend} from '@angular/http/testing';
 
 describe("HomePage", () => {
   let homepage, fixture;
@@ -22,6 +21,15 @@ describe("HomePage", () => {
       ],
       imports: [IonicModule.forRoot(HomePage)],
       providers: [
+        BaseRequestOptions,
+        MockBackend,
+        {
+          provide: Http,
+          useFactory: (backend, defaultOptions) => {
+            return new Http(backend, defaultOptions)
+          },
+          deps: [MockBackend, BaseRequestOptions]
+        },
         { provide: Platform, useFactory: () => PlatformMock.instance() },
         { provide: StatusBar, useFactory: () => StatusBarMock.instance() },
         { provide: SplashScreen, useFactory: () => SplashScreenMock.instance() },
@@ -55,10 +63,14 @@ describe("HomePage", () => {
   });
 
   it('calculate function should call person provider doAssessment function', inject([PersonProvider, Angular2TokenService], (person, _tokenService) => {
-    homepage.user = { age: 25, gender: 'female', distance: 2500 };
+    _tokenService.init({
+      apiBase: 'https://your-cooper-api.herokuapp.com/api/v1'
+    });
+    
+    let user = { age: 25, gender: 'female', distance: 2500 };
     spyOn(person, 'doAssessment').and.returnValue('Above average');
     
-    homepage.calculate();
+    homepage.calculate(user);
 
     expect(person.doAssessment).toHaveBeenCalled();
     expect(person.doAssessment).toHaveBeenCalledWith(2500);

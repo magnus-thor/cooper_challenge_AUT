@@ -26,6 +26,7 @@ export class MyApp {
   ) {
     this._tokenService.init({
       apiBase: 'https://your-cooper-api.herokuapp.com/api/v1'
+      // apiBase: 'https://mta-cooper-api.herokuapp.com/api/v1'
     });
       this.initializeApp();
 

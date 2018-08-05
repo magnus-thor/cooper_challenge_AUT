@@ -1,3 +1,4 @@
+import { PerformanceDataProvider } from './../../providers/performance-data/performance-data';
 import { CooperProvider } from './../../providers/cooper/cooper';
 import { PersonProvider } from './../../providers/person/person';
 import { HomePage } from "./home";
@@ -6,6 +7,7 @@ import { IonicModule, Platform, NavController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { PlatformMock, StatusBarMock, SplashScreenMock, NavControllerMock } from "ionic-mocks";
+import { Angular2TokenService } from 'angular2-token';
 
 
 
@@ -24,7 +26,7 @@ describe("HomePage", () => {
         { provide: StatusBar, useFactory: () => StatusBarMock.instance() },
         { provide: SplashScreen, useFactory: () => SplashScreenMock.instance() },
         { provide: NavController, useFactory: () => NavControllerMock.instance() },
-        PersonProvider, CooperProvider
+        PersonProvider, CooperProvider, PerformanceDataProvider, Angular2TokenService
       ]
     }).compileComponents();
   }));
@@ -52,7 +54,7 @@ describe("HomePage", () => {
     expect(homepage.calculate).toHaveBeenCalled(); // check if the function has been called
   });
 
-  it('calculate function should call person provider doAssessment function', inject([PersonProvider], (person) => {
+  it('calculate function should call person provider doAssessment function', inject([PersonProvider, Angular2TokenService], (person, _tokenService) => {
     homepage.user = { age: 25, gender: 'female', distance: 2500 };
     spyOn(person, 'doAssessment').and.returnValue('Above average');
     

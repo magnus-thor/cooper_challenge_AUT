@@ -8,8 +8,9 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { PlatformMock, StatusBarMock, SplashScreenMock, NavControllerMock } from "ionic-mocks";
 import { Angular2TokenService } from 'angular2-token';
-import {Http, BaseRequestOptions, RequestMethod} from '@angular/http'
-import {MockBackend} from '@angular/http/testing';
+import { Http, BaseRequestOptions } from '@angular/http'
+import { MockBackend } from '@angular/http/testing';
+import { Observable } from 'rx';
 
 describe("HomePage", () => {
   let homepage, fixture;
@@ -62,19 +63,19 @@ describe("HomePage", () => {
     expect(homepage.calculate).toHaveBeenCalled(); // check if the function has been called
   });
 
-  it('calculate function should call person provider doAssessment function', inject([PersonProvider, Angular2TokenService], (person, _tokenService) => {
+  it('calculate function should call person provider doAssessment function', inject([PersonProvider, Angular2TokenService], (personProvider, _tokenService) => {
     _tokenService.init({
       apiBase: 'https://your-cooper-api.herokuapp.com/api/v1'
     });
     
     let user = { age: 25, gender: 'female', distance: 2500 };
-    spyOn(person, 'doAssessment').and.returnValue('Above average');
+    spyOn(personProvider, 'doAssessment').and.returnValue('Above average');
     
     homepage.calculate(user);
 
-    expect(person.doAssessment).toHaveBeenCalled();
-    expect(person.doAssessment).toHaveBeenCalledWith(2500);
-    expect(person.age).toEqual(25);
-    expect(person.gender).toEqual('female');
+    expect(personProvider.doAssessment).toHaveBeenCalled();
+    expect(personProvider.doAssessment).toHaveBeenCalledWith(2500);
+    expect(personProvider.age).toEqual(25);
+    expect(personProvider.gender).toEqual('female');
   }))
 });

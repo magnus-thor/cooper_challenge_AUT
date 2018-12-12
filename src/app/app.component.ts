@@ -25,7 +25,7 @@ export class MyApp {
     private alertCtrl: AlertController
   ) {
     this._tokenService.init({
-      apiBase: 'https://your-cooper-api.herokuapp.com/api/v1'
+      apiBase: 'http://localhost:3000/api/v1'
       // apiBase: 'https://mta-cooper-api.herokuapp.com/api/v1'
     });
       this.initializeApp();
@@ -89,9 +89,14 @@ export class MyApp {
     this._tokenService
       .signIn(credentials)
       .subscribe(
-      res => (this.currentUser = res.json().data),
+      res => {
+        debugger;
+        this.currentUser = res.json().data
+        let name = this.currentUser.name
+      },
       err => console.error('error')
       );
+    debugger;
   }
 
   logout() {
